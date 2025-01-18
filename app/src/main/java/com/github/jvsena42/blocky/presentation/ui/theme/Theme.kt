@@ -1,6 +1,5 @@
-package com.github.jvsena42.blocky.ui.theme
+package com.github.jvsena42.blocky.presentation.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
