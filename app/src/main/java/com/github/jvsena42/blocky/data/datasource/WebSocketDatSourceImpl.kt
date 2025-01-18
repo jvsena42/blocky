@@ -2,7 +2,7 @@ package com.github.jvsena42.blocky.data.datasource
 
 import android.util.Log
 import com.github.jvsena42.blocky.BuildConfig
-import com.github.jvsena42.blocky.data.dto.request.WebSocketMessageDTO
+import com.github.jvsena42.blocky.data.dto.request.Subscribe
 import com.github.jvsena42.blocky.data.dto.response.BlockDTO
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.websocket.webSocket
@@ -31,8 +31,12 @@ class WebSocketDatSourceImpl(
             client.webSocket(BuildConfig.MEMPOOL_WS_URL) {
                 webSocketSession = this
 
-                val subscribeMessage = WebSocketMessageDTO.Subscribe.subscribeToBlocks()
-                val jsonMessage = json.encodeToString<WebSocketMessageDTO.Subscribe>(serializer(), subscribeMessage)
+                val subscribeMessage = Subscribe()
+                Log.d(TAG, "connectToBlockUpdates: data class: $subscribeMessage")
+                val jsonMessage = json.encodeToString<Subscribe>(
+                    Subscribe.serializer(),
+                    subscribeMessage
+                )
                 Log.d(TAG, "connectToBlockUpdates: send $jsonMessage")
                 send(Frame.Text(jsonMessage))
 

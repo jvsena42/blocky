@@ -50,6 +50,7 @@ val networkModule = module {
 
     single {
         Json {
+            encodeDefaults = true
             ignoreUnknownKeys = true
             isLenient = true
         }
