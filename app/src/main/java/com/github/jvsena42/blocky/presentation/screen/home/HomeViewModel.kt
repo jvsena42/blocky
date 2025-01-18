@@ -13,13 +13,14 @@ import java.time.LocalDateTime
 
 class HomeViewModel(
     private val blockRepository: BlockRepository,
+    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(ioDispatcher) {
             blockRepository.getBlocks().collect { blocks ->
                 Log.d(TAG, "collectedBlocks: ${blocks.take(10)}")
                 _uiState.value = _uiState.value.copy(
