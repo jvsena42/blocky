@@ -1,5 +1,6 @@
 package com.github.jvsena42.blocky.presentation.screen.home
 
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
@@ -69,23 +70,29 @@ fun ScreenHome(
             AnimatedVisibility (uiState.isOffline) {
                 Card(
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
-                    modifier = Modifier.fillMaxWidth().padding(8.dp)
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(8.dp)
                 ) {
                     Text(
                         text = stringResource(R.string.you_are_offline),
                         color = MaterialTheme.colorScheme.onErrorContainer,
                         style = MaterialTheme.typography.titleLarge,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth().padding(8.dp)
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp)
                     )
                 }
             }
 
-            Text(
-                text = "Last update: ${uiState.lastUpdateTime}",
-                style = MaterialTheme.typography.bodyMedium,
-                modifier = Modifier.padding(16.dp)
-            )
+            AnimatedContent(uiState.lastUpdateTime) { lastUpdate ->
+                Text(
+                    text = stringResource(R.string.last_update, lastUpdate),
+                    style = MaterialTheme.typography.bodyMedium,
+                    modifier = Modifier.padding(16.dp)
+                )
+            }
 
             LazyColumn(
                 modifier = Modifier.fillMaxSize(),
