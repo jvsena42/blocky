@@ -1,5 +1,6 @@
 package com.github.jvsena42.blocky.presentation.screen.home
 
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +17,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.github.jvsena42.blocky.R
@@ -64,13 +66,19 @@ fun ScreenHome(
                 .padding(paddingValues)
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            if (uiState.isOffline) {
-                Text(
-                    text = "You are offline",
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(16.dp)
-                )
+            AnimatedVisibility (uiState.isOffline) {
+                Card(
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
+                    modifier = Modifier.fillMaxWidth().padding(8.dp)
+                ) {
+                    Text(
+                        text = stringResource(R.string.you_are_offline),
+                        color = MaterialTheme.colorScheme.onErrorContainer,
+                        style = MaterialTheme.typography.titleLarge,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.fillMaxWidth().padding(8.dp)
+                    )
+                }
             }
 
             Text(
@@ -127,7 +135,7 @@ private fun Preview() {
                     ),
                 ),
                 lastUpdateTime = "18/08/2021 12:00:00",
-                isOffline = false
+                isOffline = true
             )
         ) { }
     }
