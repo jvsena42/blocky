@@ -1,5 +1,6 @@
 package com.github.jvsena42.blocky.presentation.screen.home
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -43,6 +44,7 @@ fun ScreenHome(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
+                .background(MaterialTheme.colorScheme.background)
         ) {
             if (uiState.isOffline) {
                 Text(
@@ -69,7 +71,7 @@ fun ScreenHome(
                             .fillMaxWidth()
                             .padding(vertical = 8.dp),
                         height = block.height.toString(),
-                        hash = block.hash.toString(),
+                        hash = block.hash,
                         timestamp = block.timestamp.toString(),
                         size = block.size.toString(),
                         weight = block.weight.toString(),
