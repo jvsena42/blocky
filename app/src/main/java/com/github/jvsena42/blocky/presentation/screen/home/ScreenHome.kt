@@ -17,6 +17,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -51,7 +52,10 @@ fun ScreenHome(
             TopAppBar(
                 title = { Text(stringResource(R.string.bitcoin_blocks)) },
                 actions = {
-                    IconButton(onClick = { homeActions(HomeActions.OnClickSearch) }) {
+                    IconButton(
+                        onClick = { homeActions(HomeActions.OnClickSearch) },
+                        modifier = Modifier.testTag("searchButton")
+                    ) {
                         Icon(
                             Icons.Default.Search,
                             contentDescription = stringResource(R.string.search)
@@ -67,7 +71,10 @@ fun ScreenHome(
                 .padding(paddingValues)
                 .background(MaterialTheme.colorScheme.background)
         ) {
-            AnimatedVisibility (uiState.isOffline) {
+            AnimatedVisibility(
+                visible = uiState.isOffline,
+                modifier = Modifier.testTag("offlineCard")
+            ) {
                 Card(
                     colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.errorContainer),
                     modifier = Modifier
@@ -86,23 +93,28 @@ fun ScreenHome(
                 }
             }
 
-            AnimatedContent(uiState.lastUpdateTime) { lastUpdate ->
+            AnimatedContent(
+                targetState = uiState.lastUpdateTime,
+            ) { lastUpdate ->
                 Text(
                     text = stringResource(R.string.last_update, lastUpdate),
                     style = MaterialTheme.typography.bodyMedium,
-                    modifier = Modifier.padding(16.dp)
+                    modifier = Modifier.padding(16.dp).testTag("tag_lastUpdateTime")
                 )
             }
 
             LazyColumn(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .testTag("blocksList"),
                 contentPadding = PaddingValues(16.dp)
             ) {
                 items(uiState.blocks, key = { block -> block.hash }) { block ->
                     BlockItem(  //TODO CREATE A MODEL FOR THE VIEW
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(vertical = 8.dp),
+                            .padding(vertical = 8.dp)
+                            .testTag("blockItem_${block.hash}"),
                         height = block.height.toString(),
                         hash = block.hash,
                         timestamp = block.timestamp.toString(),
@@ -114,7 +126,6 @@ fun ScreenHome(
             }
         }
     }
-
 }
 
 @PreviewLightDark
