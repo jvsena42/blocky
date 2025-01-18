@@ -26,7 +26,7 @@ Blocky is an Android block explorer application built using Jetpack Compose. The
   - [X] Integrate the [Mempool.space API](https://mempool.space/docs/api).
   - [ ] Integrate the [Bitfinex API](https://docs.bitfinex.com/docs).
 - [ ] **Home Screen**:
-  - [ ] Display a list of recent Bitcoin blocks in real time.
+  - [X] Display a list of recent Bitcoin blocks in real time.
   - [ ] Add a search shortcut to track specific Bitcoin addresses.
 - [ ] **Block Details**:
   - [ ] Fetch and display block details (e.g., transactions, hash, size).
