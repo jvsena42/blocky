@@ -14,6 +14,7 @@ ktor_version = "3.0.3"
 room_version = "2.6.1"
 ksp_version = "2.0.21-1.0.27"
 mockk_version="1.13.16"
+turbine = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -49,6 +50,7 @@ room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_ver
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room_version" }
 
 mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk_version" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
