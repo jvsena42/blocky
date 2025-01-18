@@ -21,7 +21,7 @@ Blocky is an Android block explorer application built using Jetpack Compose. The
 
 ### Tasks
 #### Core Development
-- [ ] **Setup Project**: Initialize an Android project with Jetpack Compose.
+- [X] **Setup Project**: Initialize an Android project with Jetpack Compose.
 - [ ] **API Integration**:
   - [ ] Integrate the [Mempool.space API](https://mempool.space/docs/api).
   - [ ] Integrate the [Bitfinex API](https://docs.bitfinex.com/docs).
