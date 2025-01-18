@@ -5,6 +5,7 @@ coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
+kotlinxCoroutinesTest = "1.10.1"
 lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.04.01"
@@ -12,6 +13,7 @@ koin-bom = "4.0.0"
 ktor_version = "3.0.3"
 room_version = "2.6.1"
 ksp_version = "2.0.21-1.0.27"
+mockk_version="1.13.16"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +37,7 @@ koin-viewmodel = { module = "io.insert-koin:koin-core-viewmodel" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose" }
 koin-test = { module = "io.insert-koin:koin-test-junit4" }
 
+kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "kotlinxCoroutinesTest" }
 ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor_version" }
 ktor-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor_version" }
 ktor-logback = { group = "io.ktor", name = "ktor-client-logging-jvm", version.ref = "ktor_version" }
@@ -44,6 +47,8 @@ room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room_version" }
+
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk_version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
