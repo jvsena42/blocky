@@ -32,12 +32,6 @@ class BlockRepositoryImpl(
 
     override fun getBlocks(): Flow<List<Block>> {
         Log.d(TAG, "getBlocks: ")
-//        webSocketDataSource.connectToBlockUpdates().onEach { block ->
-//            Log.d(TAG, "getBlocks: $block")
-//            blockDao.insertBlock(block.toEntity())
-//            blockDao.deleteOldBlocks()
-//        }
-
         return blockDao.getRecentBlocks()
             .map { entities ->
                 entities.map { it.toModel() }
