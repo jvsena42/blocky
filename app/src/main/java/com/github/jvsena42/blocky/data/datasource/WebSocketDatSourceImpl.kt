@@ -25,20 +25,22 @@ class WebSocketDatSourceImpl(
 
     private var webSocketSession: DefaultWebSocketSession? = null
 
-
     override fun connectToBlockUpdates(): Flow<BlockDTO> = callbackFlow {
+        Log.d(TAG, "connectToBlockUpdates: ")
         try {
             client.webSocket(BuildConfig.MEMPOOL_WS_URL) {
                 webSocketSession = this
 
                 val subscribeMessage = WebSocketMessageDTO.Subscribe.subscribeToBlocks()
                 val jsonMessage = json.encodeToString<WebSocketMessageDTO.Subscribe>(serializer(), subscribeMessage)
+                Log.d(TAG, "connectToBlockUpdates: send $jsonMessage")
                 send(Frame.Text(jsonMessage))
 
                 for (frame in incoming) {
                     when (frame) {
                         is Frame.Text -> {
                             val text = frame.readText()
+                            Log.d(TAG, "connectToBlockUpdates: $text")
                             if (text.contains(""""block":""")) {
                                 val block = json.decodeFromString<BlockDTO>(
                                     text.substringAfter(""""block":""").trim()
@@ -47,12 +49,14 @@ class WebSocketDatSourceImpl(
                             }
                         }
 
-                        else -> {}
+                        else -> {
+                            Log.d(TAG, "connectToBlockUpdates: else $frame")
+                        }
                     }
                 }
             }
         } catch (e: Exception) {
-            Log.e(TAG, "connectToBlockUpdates: ", e)
+            Log.e(TAG, "connectToBlockUpdates: catch", e)
             close(e)
         }
 
