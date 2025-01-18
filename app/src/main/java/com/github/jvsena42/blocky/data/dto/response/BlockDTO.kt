@@ -10,5 +10,5 @@ data class BlockDTO(
     val timestamp: Long,
     val size: Int,
     val weight: Int,
-    @SerialName("tx_count") val tcCount: Int
+    @SerialName("tx_count") val txCount: Int
 )
