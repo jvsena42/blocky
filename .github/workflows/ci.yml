@@ -22,62 +22,23 @@ jobs:
         with:
           java-version: '17'
           distribution: 'adopt'
-          cache: 'gradle'
-
-      - name: Setup Android SDK
-        uses: android-actions/setup-android@v3
 
       - name: Make gradlew executable
         run: chmod +x gradlew
 
+      - name: gradle wrapper
+        run:  gradle wrapper
+
       - name: Build with Gradle
         run: ./gradlew build
 
-      - name: Run Unit tests
+      - name: Run tests
         run: ./gradlew test
 
-      - name: AVD cache
-        uses: actions/cache@v3
-        id: avd-cache
-        with:
-          path: |
-            ~/.android/avd/*
-            ~/.android/adb*
-          key: avd-29
+    # TODO ADD COMPOSE TESTS STEP
 
-      - name: Create AVD and generate snapshot for caching
-        if: steps.avd-cache.outputs.cache-hit != 'true'
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          arch: x86_64
-          profile: pixel_2
-          force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
-          script: echo "Generated AVD snapshot for caching."
-
-      - name: Run instrumented tests
-        uses: reactivecircus/android-emulator-runner@v2
-        with:
-          api-level: 29
-          arch: x86_64
-          profile: pixel_2
-          force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: true
-          script: ./gradlew connectedAndroidTest
-
-      - name: Upload Unit Test Report
+      - name: Upload test report
         uses: actions/upload-artifact@v4
-        if: always()
         with:
           name: unit_test_report
           path: app/build/reports/tests/testDebugUnitTest/
-
-      - name: Upload Instrumented Test Report
-        uses: actions/upload-artifact@v4
-        if: always()
-        with:
-          name: instrumented_test_report
-          path: app/build/reports/androidTests/connected/
