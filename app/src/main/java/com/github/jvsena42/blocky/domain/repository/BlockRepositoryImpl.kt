@@ -1,6 +1,7 @@
 package com.github.jvsena42.blocky.domain.repository
 
 import android.util.Log
+import android.util.Log.e
 import com.github.jvsena42.blocky.data.datasource.WebSocketDataSource
 import com.github.jvsena42.blocky.db.BlockDao
 import com.github.jvsena42.blocky.domain.mapper.toEntity
@@ -32,7 +33,7 @@ class BlockRepositoryImpl(
                 blockDao.deleteOldBlocks()
             }.collect()
         }
-        
+
         return blockDao.getRecentBlocks()
             .map { entities ->
                 Log.d(TAG, "getBlocks: return")
