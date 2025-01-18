@@ -13,7 +13,6 @@ import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.websocket.WebSockets
-import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -27,10 +26,14 @@ class BlockyApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@BlockyApplication)
-            viewmodelModule
-            networkModule
-            databaseModule
-            repositoryModule
+            modules(
+                listOf(
+                    viewmodelModule,
+                    networkModule,
+                    databaseModule,
+                    repositoryModule
+                )
+            )
         }
     }
 }
