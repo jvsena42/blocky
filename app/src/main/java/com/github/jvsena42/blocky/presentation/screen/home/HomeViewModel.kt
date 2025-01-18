@@ -39,7 +39,7 @@ class HomeViewModel(
         }
     }
 
-    private fun getformattedTime(): String {
+    private fun getformattedTime(): String { //TODO SAVE THE DATE IN PREFERENCES AT EVERY SUCCESS REQUEST
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN))
     }
 
