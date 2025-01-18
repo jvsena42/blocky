@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.kotlin.compose)
 }
 
+val MEMPOOL_WS_URL: String by project
+
 android {
     namespace = "com.github.jvsena42.blocky"
     compileSdk = 35
@@ -25,6 +27,15 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            buildConfigField("String", "MEMPOOL_WS_URL", "\"$MEMPOOL_WS_URL\"")
+        }
+        debug {
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+            buildConfigField("String", "MEMPOOL_WS_URL", "\"$MEMPOOL_WS_URL\"")
         }
     }
     compileOptions {
@@ -36,6 +47,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
