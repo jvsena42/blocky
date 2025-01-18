@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 class HomeViewModel(
     private val blockRepository: BlockRepository,
@@ -39,7 +40,7 @@ class HomeViewModel(
     }
 
     private fun getformattedTime(): String {
-        return LocalDateTime.now().toString().format(DATE_TIME_PATTERN)
+        return LocalDateTime.now().format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN))
     }
 
     companion object {
