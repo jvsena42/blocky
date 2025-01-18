@@ -9,6 +9,7 @@ lifecycleRuntimeKtx = "2.8.7"
 activityCompose = "1.9.3"
 composeBom = "2024.04.01"
 koin-bom = "4.0.0"
+ktor_version = "3.0.3"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -31,6 +32,11 @@ koin-android = { module = "io.insert-koin:koin-android" }
 koin-viewmodel = { module = "io.insert-koin:koin-core-viewmodel" }
 koin-compose = { module = "io.insert-koin:koin-androidx-compose" }
 koin-test = { module = "io.insert-koin:koin-test-junit4" }
+
+ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor_version" }
+ktor-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor_version" }
+ktor-logback = { group = "io.ktor", name = "ktor-client-logging-jvm", version.ref = "ktor_version" }
+ktor-serialization = { group = "io.ktor", name = "ktor-client-serialization-jvm", version.ref = "ktor_version" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

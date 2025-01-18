@@ -54,6 +54,12 @@ dependencies {
     implementation(libs.koin.compose)
     implementation(libs.koin.android)
     implementation(libs.koin.test)
+
+    implementation(libs.ktor.core)
+    implementation(libs.ktor.cio)
+    implementation(libs.ktor.logback)
+    implementation(libs.ktor.serialization)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
