@@ -1,4 +1,4 @@
-package com.github.jvsena42.blocky
+package com.github.jvsena42.blocky.presentation.screen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -11,7 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.github.jvsena42.blocky.ui.theme.BlockyTheme
+import com.github.jvsena42.blocky.presentation.ui.theme.BlockyTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
