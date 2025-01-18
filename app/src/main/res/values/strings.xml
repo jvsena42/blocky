@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Blocky</string>
+    <string name="height">Height: %1$s</string>
+    <string name="hash">Hash: %1$s</string>
+    <string name="timestamp">Timestamp: %1$s</string>
+    <string name="size">Size: %1$s</string>
+    <string name="weight">Weight: %1$s</string>
+    <string name="transaction_count">Transaction Count: %1$s</string>
+    <string name="bitcoin_blocks">Bitcoin Blocks</string>
+    <string name="search">Search</string>
 </resources>
