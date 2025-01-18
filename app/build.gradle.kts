@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.ksp)
 }
 
 val MEMPOOL_WS_URL: String by project
@@ -71,6 +72,11 @@ dependencies {
     implementation(libs.ktor.cio)
     implementation(libs.ktor.logback)
     implementation(libs.ktor.serialization)
+
+    implementation(libs.room.runtime)
+    ksp(libs.room.compiler)
+    implementation(libs.room.ktx)
+    testImplementation(libs.room.testing)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

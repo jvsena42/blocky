@@ -10,6 +10,8 @@ activityCompose = "1.9.3"
 composeBom = "2024.04.01"
 koin-bom = "4.0.0"
 ktor_version = "3.0.3"
+room_version = "2.6.1"
+ksp_version = "2.0.21-1.0.27"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -38,8 +40,14 @@ ktor-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor_ve
 ktor-logback = { group = "io.ktor", name = "ktor-client-logging-jvm", version.ref = "ktor_version" }
 ktor-serialization = { group = "io.ktor", name = "ktor-client-serialization-jvm", version.ref = "ktor_version" }
 
+room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room_version" }
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room_version" }
+room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room_version" }
+room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room_version" }
+
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+ksp = { id = "com.google.devtools.ksp", version.ref = "ksp_version" }
 
