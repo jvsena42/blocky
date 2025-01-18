@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.github.jvsena42.blocky.R
 import com.github.jvsena42.blocky.domain.model.Block
 import com.github.jvsena42.blocky.presentation.components.BlockItem
+import com.github.jvsena42.blocky.presentation.ui.theme.BlockyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,26 +85,28 @@ fun ScreenHome(
 @PreviewLightDark
 @Composable
 private fun Preview() {
-    ScreenHome(HomeUiState(
-        blocks = listOf(
-            Block(
-                height = 1,
-                hash = "0000000000000000000",
-                timestamp = 1629264000,
-                size = 1000,
-                weight = 1000,
-                txCount = 1000
+    BlockyTheme {
+        ScreenHome(HomeUiState(
+            blocks = listOf(
+                Block(
+                    height = 1,
+                    hash = "0000000000000000000",
+                    timestamp = 1629264000,
+                    size = 1000,
+                    weight = 1000,
+                    txCount = 1000
+                ),
+                Block(
+                    height = 2,
+                    hash = "0000000000000000001",
+                    timestamp = 1629264000,
+                    size = 1000,
+                    weight = 1000,
+                    txCount = 1000
+                ),
             ),
-            Block(
-                height = 2,
-                hash = "0000000000000000001",
-                timestamp = 1629264000,
-                size = 1000,
-                weight = 1000,
-                txCount = 1000
-            ),
-        ),
-        lastUpdateTime = "18/08/2021 12:00:00",
-        isOffline = false
-    )) { }
+            lastUpdateTime = "18/08/2021 12:00:00",
+            isOffline = false
+        )) { }
+    }
 }
