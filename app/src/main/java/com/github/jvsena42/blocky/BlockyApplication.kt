@@ -5,6 +5,8 @@ import androidx.room.Room
 import com.github.jvsena42.blocky.data.datasource.WebSocketDatSourceImpl
 import com.github.jvsena42.blocky.data.datasource.WebSocketDataSource
 import com.github.jvsena42.blocky.db.BlockDatabase
+import com.github.jvsena42.blocky.domain.repository.BlockRepository
+import com.github.jvsena42.blocky.domain.repository.BlockRepositoryImpl
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.logging.LogLevel
@@ -24,6 +26,7 @@ class BlockyApplication : Application() {
             androidContext(this@BlockyApplication)
             networkModule
             databaseModule
+            repositoryModule
         }
     }
 }
@@ -60,4 +63,11 @@ val databaseModule = module {
     }
 
     single { get<BlockDatabase>().blockDao }
+}
+
+
+val repositoryModule = module {
+    single<BlockRepository> {
+        BlockRepositoryImpl(get(), get())
+    }
 }
