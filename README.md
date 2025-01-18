@@ -48,7 +48,6 @@ Blocky is an Android block explorer application built using Jetpack Compose. The
 - [ ] Automate deployment to Google Play Store.
 - [ ] Publish a linkedin post with the release notes.
 
-
 #### Unit Testing
 - [ ] Write unit tests for:
   - [ ] API integrations.
