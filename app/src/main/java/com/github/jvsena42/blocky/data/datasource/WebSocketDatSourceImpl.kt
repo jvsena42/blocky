@@ -27,7 +27,7 @@ class WebSocketDatSourceImpl(
 
     private var webSocketSession: DefaultWebSocketSession? = null
 
-    override fun connectToBlockUpdates(): Flow<BlockDTO> = callbackFlow {
+    override fun connectToBlockUpdates(): Flow<BlockDTO> = callbackFlow { //TODO IMPLEMENT A SEALED INTERFACE TO HANDLE MULTIPLE RETURNS
         Log.d(TAG, "connectToBlockUpdates: ")
         try {
             client.webSocket(BuildConfig.MEMPOOL_WS_URL) {
