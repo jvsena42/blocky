@@ -5,7 +5,7 @@ import com.github.jvsena42.blocky.data.entities.BlockEntity
 import com.github.jvsena42.blocky.domain.model.Block
 
 fun BlockDTO.toEntity() = BlockEntity(
-    hash = hash,
+    hash = id,
     height = height,
     timestamp = timestamp,
     size = size,
@@ -23,7 +23,7 @@ fun BlockEntity.toModel() = Block(
 )
 
 fun BlockDTO.toModel() = Block(
-    hash = hash,
+    hash = id,
     height = height,
     timestamp = timestamp,
     size = size,
