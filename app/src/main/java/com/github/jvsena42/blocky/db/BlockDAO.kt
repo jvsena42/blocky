@@ -12,7 +12,7 @@ interface BlockDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertBlock(block: BlockEntity)
 
-    @Query("SELECT * FROM blocks ORDER BY timestamp DESC LIMIT 10")
+    @Query("SELECT * FROM blocks ORDER BY timestamp DESC LIMIT 100")
     fun getRecentBlocks(): Flow<List<BlockEntity>>
 
     @Query("DELETE FROM blocks WHERE timestamp NOT IN (SELECT timestamp FROM blocks ORDER BY timestamp DESC LIMIT 10)")
