@@ -1,12 +1,15 @@
 package com.github.jvsena42.blocky
 
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
 import androidx.room.Room
 import com.github.jvsena42.blocky.data.datasource.WebSocketDatSourceImpl
 import com.github.jvsena42.blocky.data.datasource.WebSocketDataSource
 import com.github.jvsena42.blocky.db.BlockDatabase
 import com.github.jvsena42.blocky.domain.repository.BlockRepository
 import com.github.jvsena42.blocky.domain.repository.BlockRepositoryImpl
+import com.github.jvsena42.blocky.domain.util.NetworkStatusTracker
 import com.github.jvsena42.blocky.presentation.screen.home.HomeViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
@@ -31,7 +34,8 @@ class BlockyApplication : Application() {
                     viewmodelModule,
                     networkModule,
                     databaseModule,
-                    repositoryModule
+                    repositoryModule,
+                    utilModule
                 )
             )
         }
@@ -59,6 +63,10 @@ val networkModule = module {
     single<WebSocketDataSource> {
         WebSocketDatSourceImpl(get(), get())
     }
+
+    single<ConnectivityManager> {
+        androidContext().getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    }
 }
 
 val databaseModule = module {
@@ -81,5 +89,14 @@ val repositoryModule = module {
 }
 
 val viewmodelModule = module {
-    viewModel<HomeViewModel> { HomeViewModel(blockRepository = get()) }
+    viewModel<HomeViewModel> {
+        HomeViewModel(
+            blockRepository = get(),
+            networkStatusTracker = get()
+        )
+    }
+}
+
+val utilModule = module {
+    single<NetworkStatusTracker> { NetworkStatusTracker(get()) }
 }
