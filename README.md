@@ -42,8 +42,8 @@ Blocky is an Android block explorer application built using Jetpack Compose. The
 
 
 ### CI/CD
-- [ ] Automate unit tests
-- [ ] Automate integration tests
+- [X] Automate unit tests
+- [X] Automate integration tests
 - [ ] Automate the generation of release notes.
 - [ ] Automate deployment to Google Play Store.
 - [ ] Publish a linkedin post with the release notes.
@@ -51,8 +51,8 @@ Blocky is an Android block explorer application built using Jetpack Compose. The
 #### Unit Testing
 - [ ] Write unit tests for:
   - [ ] API integrations.
-  - [ ] Data fetching and caching.
-  - [ ] Real-time updates and UI components.
+  - [X] Data fetching and caching.
+  - [X] Real-time updates and UI components.
 
 ### Possible Improvements
 - [ ] Implement [Floresta](https://github.com/vinteumorg/Floresta/blob/master/crates%2Ffloresta-cli%2FREADME.md#loaddescriptor) to run a local node in the phone
