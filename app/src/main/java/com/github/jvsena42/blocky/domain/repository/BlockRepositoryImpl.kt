@@ -19,7 +19,9 @@ class BlockRepositoryImpl(
     private val blockDao: BlockDao
 ) : BlockRepository {
 
-    init {
+    override fun getBlocks(): Flow<List<Block>> {
+        Log.d(TAG, "getBlocks: ")
+
         CoroutineScope(Dispatchers.IO).launch {
             Log.d(TAG, "init")
             webSocketDataSource.connectToBlockUpdates().onEach { block ->
@@ -28,12 +30,10 @@ class BlockRepositoryImpl(
                 blockDao.deleteOldBlocks()
             }.collect()
         }
-    }
-
-    override fun getBlocks(): Flow<List<Block>> {
-        Log.d(TAG, "getBlocks: ")
+        
         return blockDao.getRecentBlocks()
             .map { entities ->
+                Log.d(TAG, "getBlocks: return")
                 entities.map { it.toModel() }
             }
     }
