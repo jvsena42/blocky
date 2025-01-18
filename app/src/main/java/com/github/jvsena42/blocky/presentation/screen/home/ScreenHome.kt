@@ -12,6 +12,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
@@ -20,21 +22,37 @@ import com.github.jvsena42.blocky.R
 import com.github.jvsena42.blocky.domain.model.Block
 import com.github.jvsena42.blocky.presentation.components.BlockItem
 import com.github.jvsena42.blocky.presentation.ui.theme.BlockyTheme
+import org.koin.androidx.compose.koinViewModel
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ScreenHome(
+    viewModel: HomeViewModel = koinViewModel(),
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    ScreenHome(
+        uiState = uiState,
+        homeActions = viewModel::onAction
+    )
+}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ScreenHome(
     uiState: HomeUiState,
-    onSearchClick: () -> Unit
+    homeActions: (HomeActions) -> Unit
 ) {
-
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text(stringResource(R.string.bitcoin_blocks)) },
                 actions = {
-                    IconButton(onClick = onSearchClick) {
-                        Icon(Icons.Default.Search, contentDescription = stringResource(R.string.search))
+                    IconButton(onClick = { homeActions(HomeActions.OnClickSearch) }) {
+                        Icon(
+                            Icons.Default.Search,
+                            contentDescription = stringResource(R.string.search)
+                        )
                     }
                 }
             )
@@ -88,27 +106,29 @@ fun ScreenHome(
 @Composable
 private fun Preview() {
     BlockyTheme {
-        ScreenHome(HomeUiState(
-            blocks = listOf(
-                Block(
-                    height = 1,
-                    hash = "0000000000000000000",
-                    timestamp = 1629264000,
-                    size = 1000,
-                    weight = 1000,
-                    txCount = 1000
+        ScreenHome(
+            HomeUiState(
+                blocks = listOf(
+                    Block(
+                        height = 1,
+                        hash = "0000000000000000000",
+                        timestamp = 1629264000,
+                        size = 1000,
+                        weight = 1000,
+                        txCount = 1000
+                    ),
+                    Block(
+                        height = 2,
+                        hash = "0000000000000000001",
+                        timestamp = 1629264000,
+                        size = 1000,
+                        weight = 1000,
+                        txCount = 1000
+                    ),
                 ),
-                Block(
-                    height = 2,
-                    hash = "0000000000000000001",
-                    timestamp = 1629264000,
-                    size = 1000,
-                    weight = 1000,
-                    txCount = 1000
-                ),
-            ),
-            lastUpdateTime = "18/08/2021 12:00:00",
-            isOffline = false
-        )) { }
+                lastUpdateTime = "18/08/2021 12:00:00",
+                isOffline = false
+            )
+        ) { }
     }
 }
