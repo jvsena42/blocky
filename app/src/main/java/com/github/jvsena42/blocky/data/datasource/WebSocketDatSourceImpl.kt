@@ -4,6 +4,7 @@ import android.util.Log
 import com.github.jvsena42.blocky.BuildConfig
 import com.github.jvsena42.blocky.data.dto.request.Subscribe
 import com.github.jvsena42.blocky.data.dto.response.BlockDTO
+import com.github.jvsena42.blocky.data.dto.response.BlocksResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.plugins.websocket.webSocket
 import io.ktor.websocket.CloseReason
@@ -15,7 +16,6 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
 
 
 class WebSocketDatSourceImpl(
@@ -45,11 +45,19 @@ class WebSocketDatSourceImpl(
                         is Frame.Text -> {
                             val text = frame.readText()
                             Log.d(TAG, "connectToBlockUpdates: $text")
-                            if (text.contains(""""block":""")) {
-                                val block = json.decodeFromString<BlockDTO>(
-                                    text.substringAfter(""""block":""").trim()
-                                )
-                                trySend(block)
+
+                            if (text.contains(""""blocks":""")) {
+                                try {
+                                    val blocksJson = text
+                                    val blocksResponse = json.decodeFromString<BlocksResponse>(blocksJson)
+                                    blocksResponse.blocks.forEach { block ->
+                                        trySend(block)
+                                    }
+                                } catch (e: Exception) {
+                                    Log.e(TAG, "Failed to decode JSON: $text", e)
+                                }
+                            } else {
+                                Log.w(TAG, "JSON does not contain 'blocks' key: $text")
                             }
                         }
 

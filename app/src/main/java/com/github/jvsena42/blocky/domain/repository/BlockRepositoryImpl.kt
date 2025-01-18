@@ -21,6 +21,7 @@ class BlockRepositoryImpl(
 
     init {
         CoroutineScope(Dispatchers.IO).launch {
+            Log.d(TAG, "init")
             webSocketDataSource.connectToBlockUpdates().onEach { block ->
                 Log.d(TAG, "Received block: $block")
                 blockDao.insertBlock(block.toEntity())
