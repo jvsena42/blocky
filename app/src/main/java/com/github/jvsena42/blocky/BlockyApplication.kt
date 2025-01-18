@@ -7,15 +7,18 @@ import com.github.jvsena42.blocky.data.datasource.WebSocketDataSource
 import com.github.jvsena42.blocky.db.BlockDatabase
 import com.github.jvsena42.blocky.domain.repository.BlockRepository
 import com.github.jvsena42.blocky.domain.repository.BlockRepositoryImpl
+import com.github.jvsena42.blocky.presentation.screen.home.HomeViewModel
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.cio.CIO
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.plugins.websocket.WebSockets
+import kotlinx.coroutines.Dispatchers
 import kotlinx.serialization.json.Json
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
+import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
 class BlockyApplication : Application() {
@@ -24,6 +27,7 @@ class BlockyApplication : Application() {
         startKoin {
             androidLogger()
             androidContext(this@BlockyApplication)
+            viewmodelModule
             networkModule
             databaseModule
             repositoryModule
@@ -68,6 +72,10 @@ val databaseModule = module {
 
 val repositoryModule = module {
     single<BlockRepository> {
-        BlockRepositoryImpl(get(), get())
+        BlockRepositoryImpl(webSocketDataSource = get(), blockDao = get())
     }
+}
+
+val viewmodelModule = module {
+    viewModel<HomeViewModel> { HomeViewModel(blockRepository = get()) }
 }

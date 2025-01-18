@@ -1,5 +1,6 @@
 package com.github.jvsena42.blocky.presentation.screen.home
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.github.jvsena42.blocky.domain.repository.BlockRepository
@@ -12,20 +13,27 @@ import java.time.LocalDateTime
 
 class HomeViewModel(
     private val blockRepository: BlockRepository,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch(ioDispatcher) {
+        viewModelScope.launch(Dispatchers.IO) {
             blockRepository.getBlocks().collect { blocks ->
+                Log.d(TAG, "collectedBlocks: ${blocks.take(10)}")
                 _uiState.value = _uiState.value.copy(
                     blocks = blocks,
                     lastUpdateTime = getformattedTime()
                 )
             }
+        }
+    }
+
+    fun onAction(action: HomeActions) {
+        Log.d(TAG, "onAction: $action")
+        when (action) {
+            HomeActions.OnClickSearch -> {} //TODO IMPLEMENT
         }
     }
 
@@ -37,5 +45,4 @@ class HomeViewModel(
         private const val TAG = "HomeViewModel"
         private const val DATE_TIME_PATTERN = "dd/MMM/yyyy HH:mm:ss"
     }
-
 }
