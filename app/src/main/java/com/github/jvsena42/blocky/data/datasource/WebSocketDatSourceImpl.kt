@@ -83,7 +83,7 @@ class WebSocketDatSourceImpl(
         }  catch (e: Exception) {
             Log.e(TAG, "connectToBlockUpdates: catch", e)
             webSocketSession?.close(reason = CloseReason(CloseReason.Codes.CLOSED_ABNORMALLY, "Closing"))
-        }
+        } //TODO IMPLEMENT A RETRY FLOW
 
         awaitClose {
             webSocketSession = null
