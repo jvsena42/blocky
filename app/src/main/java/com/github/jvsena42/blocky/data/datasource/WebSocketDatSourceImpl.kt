@@ -16,6 +16,8 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.serialization.json.Json
+import java.io.IOException
+import java.nio.channels.UnresolvedAddressException
 
 
 class WebSocketDatSourceImpl(
@@ -61,15 +63,26 @@ class WebSocketDatSourceImpl(
                             }
                         }
 
+                        is Frame.Close -> {
+                            Log.d(TAG, "connectToBlockUpdates: close")
+                            close()
+                        }
+
                         else -> {
                             Log.d(TAG, "connectToBlockUpdates: else $frame")
                         }
                     }
                 }
             }
-        } catch (e: Exception) {
+        } catch (e: IOException) {
+            Log.e(TAG, "Failed to connect to WebSocket: device offline", e)
+            webSocketSession?.close(reason = CloseReason(CloseReason.Codes.TRY_AGAIN_LATER, "Closing"))
+        }  catch (e: UnresolvedAddressException) {
+            Log.e(TAG, "Failed to connect to WebSocket: Unresolved address", e)
+            webSocketSession?.close(reason = CloseReason(CloseReason.Codes.CLOSED_ABNORMALLY, "Closing"))
+        }  catch (e: Exception) {
             Log.e(TAG, "connectToBlockUpdates: catch", e)
-            close(e)
+            webSocketSession?.close(reason = CloseReason(CloseReason.Codes.CLOSED_ABNORMALLY, "Closing"))
         }
 
         awaitClose {
