@@ -65,8 +65,10 @@ Blocky is an Android block explorer application built using Jetpack Compose. The
 ## Screenshots
 
 The app supports both light and dark themes.
-![Light Mode](screenshots/light.png){:height="600px" width="300px"}
-![Dark Mode](screenshots/dark.png){:height="600px" width="300px"}
+
+![Light Mode](screenshots/light.webp){:width="300px"}
+
+![Dark Mode](screenshots/dark.webp){:width="300px"}
 
 ---
 
