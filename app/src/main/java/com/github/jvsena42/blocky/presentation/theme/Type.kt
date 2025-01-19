@@ -1,4 +1,4 @@
-package com.github.jvsena42.blocky.presentation.ui.theme
+package com.github.jvsena42.blocky.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

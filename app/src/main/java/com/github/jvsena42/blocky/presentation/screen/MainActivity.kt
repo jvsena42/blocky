@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import com.github.jvsena42.blocky.presentation.screen.home.ScreenHome
-import com.github.jvsena42.blocky.presentation.ui.theme.BlockyTheme
+import com.github.jvsena42.blocky.presentation.theme.BlockyTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

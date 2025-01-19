@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import com.github.jvsena42.blocky.R
 import com.github.jvsena42.blocky.domain.model.Block
 import com.github.jvsena42.blocky.presentation.components.BlockItem
-import com.github.jvsena42.blocky.presentation.ui.theme.BlockyTheme
+import com.github.jvsena42.blocky.presentation.theme.BlockyTheme
 import org.koin.androidx.compose.koinViewModel
 
 
